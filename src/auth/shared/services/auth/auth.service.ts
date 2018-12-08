@@ -15,6 +15,7 @@ export class AuthService {
 	auth$ = this.af.authState.do((next) => {
 		if (!next) {
 			this.store.set('user', null);
+			return;
 		}
 		const user: User = {
 			email: next.email,
@@ -33,5 +34,9 @@ export class AuthService {
 
 	loginUser(email: string, password: string) {
 		return this.af.auth.signInWithEmailAndPassword(email, password);
+	}
+
+	logoutUser() {
+		return this.af.auth.signOut();
 	}
 }
